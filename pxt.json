@@ -1,18 +1,16 @@
 {
-    "name": "DFRobot_GamePad_v30",
-    "version": "0.0.1",
-    "description": "",
+    "name": "pxt-dfrobot_gamepad_v30",
     "dependencies": {
-        "core": "*",
+        "core": "*"
     },
     "files": [
-       "gamerpad.cpp",
-        "main.ts",
+        ".vscode/settings.json",
+        ".vscode/tasks.json",
+        "README.md",
         "_locales/zh/gamePad-strings.json",
-        "README.md"
-    ],
-    "testFiles": [
-        "test.ts"
+        "main.ts",
+        "test.ts",
+        "tsconfig.json"
     ],
     "supportedTargets": [
         "microbit"
