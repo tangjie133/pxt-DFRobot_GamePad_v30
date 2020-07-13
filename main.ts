@@ -18,17 +18,15 @@
  */
 //%
 enum GamerBitPin {
-    //% block="X button"
-    P1 = DAL.MICROBIT_ID_IO_P1,
-    //% block="Y button"
-    P2 = DAL.MICROBIT_ID_IO_P2,
-    //% block="D-PAD up"
-    P8 = DAL.MICROBIT_ID_IO_P8,
-    //% block="D-PAD down"
+    //% block="D-PAD Z"
+    P2 = DAL.MICROBIT_ID_IO_P8,
+    //% block="D-PAD F"
+    P8 = DAL.MICROBIT_ID_IO_P16,
+    //% block="D-PAD C"
     P13 = DAL.MICROBIT_ID_IO_P13,
-    //% block="D-PAD left"
+    //% block="D-PAD D"
     P14 = DAL.MICROBIT_ID_IO_P14,
-    //% block="D-PAD right"
+    //% block="D-PAD E"
     P15 = DAL.MICROBIT_ID_IO_P15,
 }
 
@@ -51,7 +49,7 @@ enum GamerBitEvent {
 //% weight=10 color=#DF6721 icon="\uf11b" block="gamePad"
 namespace gamePad {
     let PIN_INIT = 0;
-    
+    let speed    = 0;
     export enum Vibrator { 
         //% blockId="V0" block="stop"
         V0 = 0,
@@ -84,7 +82,6 @@ namespace gamePad {
     }
 
     function PinInit(): void {
-        pins.setPull(DigitalPin.P1, PinPullMode.PullNone);
         pins.setPull(DigitalPin.P2, PinPullMode.PullNone);
         pins.setPull(DigitalPin.P8, PinPullMode.PullNone);
         pins.setPull(DigitalPin.P13, PinPullMode.PullNone);
@@ -136,7 +133,17 @@ namespace gamePad {
     //% blockId=gamePad_vibratorMotor block="Vibrator motor switch|%index|"
     //% index.fieldEditor="gridpicker" index.fieldOptions.columns=2
     export function vibratorMotor(index: Vibrator): void {
-        vibratorMotorSpeed(<number>index);
+        if(speed != 0){
+            if (!PIN_INIT) 
+                PinInit();
+            let num = speed * 4;
+            pins.analogWritePin(AnalogPin.P12, <number>num);
+        }else{
+            if (!PIN_INIT) 
+                PinInit();
+            let num = index * 4;
+            pins.analogWritePin(AnalogPin.P12, <number>num);
+        }
         return;
     }
 
@@ -148,24 +155,20 @@ namespace gamePad {
     //% blockId=gamePad_vibratorMotorSpeed block="Vibrator motor intensity|%degree"
     //% degree.min=0 degree.max=255
     export function vibratorMotorSpeed(degree: number): void {
-        if (!PIN_INIT) { 
-            PinInit();
-        }
-        let num = degree * 4;
-        pins.analogWritePin(AnalogPin.P12, <number>num);
+       speed = degree;
         return;
     }
 
-    /**
-     * LED indicator light switch.
-     */
-    //% weight=20
-    //% blockId=gamePad_led block="LED|%index|"
-    //% index.fieldEditor="gridpicker" index.fieldOptions.columns=2
-    export function led(index: Led): void {
-        if (!PIN_INIT) { 
-            PinInit();
-        }
-        pins.digitalWritePin(DigitalPin.P16, <number>index);
-    }
+    // /**
+    //  * LED indicator light switch.
+    //  */
+    // //% weight=20
+    // //% blockId=gamePad_led block="LED|%index|"
+    // //% index.fieldEditor="gridpicker" index.fieldOptions.columns=2
+    // export function led(index: Led): void {
+    //     if (!PIN_INIT) { 
+    //         PinInit();
+    //     }
+    //     pins.digitalWritePin(DigitalPin.P16, <number>index);
+    // }
 }
