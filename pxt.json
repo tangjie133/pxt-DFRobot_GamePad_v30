@@ -4,11 +4,11 @@
     "description": "",
     "dependencies": {
         "core": "*",
-        "radio": "*"
     },
     "files": [
-        "main.blocks",
+       "gamerpad.cpp",
         "main.ts",
+        "_locales/zh/gamePad-strings.json",
         "README.md"
     ],
     "testFiles": [
