@@ -9,7 +9,7 @@
         "main.ts",
         "test.ts",
         "tsconfig.json" ,
-        "gamepad.cpp"
+        "gamerpad.cpp"
     ],
     "supportedTargets": [
         "microbit"
