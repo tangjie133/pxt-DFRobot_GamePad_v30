@@ -1,5 +1,6 @@
 {
     "name": "DFRobot_GamePad_v30",
+    "version": "0.0.1",
     "description": "",
     "dependencies": {
         "core": "*",
