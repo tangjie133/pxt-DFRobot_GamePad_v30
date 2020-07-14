@@ -39,8 +39,8 @@ enum GamerBitEvent {
     Down = DAL.MICROBIT_BUTTON_EVT_DOWN,
     //% block="released"
     Up = DAL.MICROBIT_BUTTON_EVT_UP,
-    //% block="click"
-    Click = DAL.MICROBIT_BUTTON_EVT_CLICK,
+    // //% block="click"
+    // Click = DAL.MICROBIT_BUTTON_EVT_CLICK,
 }
 
 //%
