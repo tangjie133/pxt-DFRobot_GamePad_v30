@@ -1,7 +1,7 @@
 /*！
  * @file gamePad/main.ts
  * @brief DFRobot's gamer pad makecode library.
- * @n [Get the module here](http://www.dfrobot.com.cn/goods-1577.html)
+ * @n [Get the module here]()
  * @n This is the microbit dedicated handle library, which provides an API to 
  * control eight buttons, including an led indicator light and a vibrating motor.
  *
@@ -9,8 +9,7 @@
  * @copyright	GNU Lesser General Public License
  *
  * @author [email](1035868977@qq.com)
- * @version  V1.0
- * @date  2018-03-20
+ * @date  2020-07-12
  */
 
 /**
@@ -57,7 +56,7 @@ const _switch = 1;
 /**
  * Functions for DFRobot gamer:bit Players.
  */
-//% weight=10 color=#DF6721 icon="\uf11b" block="gamePad"
+//% weight=10 color=#DF6721 icon="\uf11b" block="GamePad"
 namespace gamePad {
     let PIN_INIT = 0;
     let _speed    = -1;
