@@ -8,7 +8,7 @@
  * @copyright	[DFRobot](http://www.dfrobot.com), 2016
  * @copyright	GNU Lesser General Public License
  *
- * @author [email](1035868977@qq.com)
+ * @author [email](jie.tanmg@dfrobot.com)
  * @date  2020-07-12
  */
 
@@ -60,7 +60,7 @@ const _switch = 1;
 //% weight=10 color=#DF6721 icon="\uf11b" block="GamePad"
 namespace gamePad {
     let PIN_INIT = 0;
-    let _speed    = -1;
+    let _speed   = -1;
     
     export enum Vibrator { 
         //% blockId="V0" block="stop"
@@ -79,14 +79,6 @@ namespace gamePad {
         //% blockId="I3" block="strong"
         I3 = 225
     }
-
-    // export enum Led {
-    //     //% blockId="OFF" block="off"
-    //     OFF = 0,
-    //     //% blockId="ON" block="on"
-    //     ON = 1
-    // }
-
 
     //% shim=gamerpad::init
     function init(): void {
