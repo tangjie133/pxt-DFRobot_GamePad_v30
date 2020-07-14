@@ -1,6 +1,6 @@
 {
     "name": "GamePad",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "This library is DFRobot gamer:bit provides the game handle control function.",
     "license": "GNU",
     "dependencies": {
