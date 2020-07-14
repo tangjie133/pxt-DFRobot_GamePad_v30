@@ -18,24 +18,22 @@
  */
 //%
 enum GamerBitPin {
-    //% block="X button"
-    P1 = DAL.MICROBIT_ID_IO_P1,
-    //% block="Y button"
-    P2 = DAL.MICROBIT_ID_IO_P2,
-    //% block="D-PAD up"
+    //% block="KeyZ"
     P8 = DAL.MICROBIT_ID_IO_P8,
-    //% block="D-PAD down"
+    //% block="KeyC"
     P13 = DAL.MICROBIT_ID_IO_P13,
-    //% block="D-PAD left"
+    //% block="KeyD"
     P14 = DAL.MICROBIT_ID_IO_P14,
-    //% block="D-PAD right"
+    //% block="KeyE"
     P15 = DAL.MICROBIT_ID_IO_P15,
+    //% block="KeyF"
+    P16 = DAL.MICROBIT_ID_IO_P16
 }
 
 /**
  * Trigger Events Proposed by DFRobot gamer:bit Players.
  */
-//%
+
 enum GamerBitEvent {
     //% block="pressed"
     Down = DAL.MICROBIT_BUTTON_EVT_DOWN,
@@ -45,12 +43,24 @@ enum GamerBitEvent {
     Click = DAL.MICROBIT_BUTTON_EVT_CLICK,
 }
 
+//%
+enum StateSelection{
+    //%block="analogquantity"
+    ANALOG,
+    //%block="switchquantity"
+    SWITCH
+}
+
+const _analog = 0;
+const _switch = 1;
+
 /**
  * Functions for DFRobot gamer:bit Players.
  */
 //% weight=10 color=#DF6721 icon="\uf11b" block="gamePad"
 namespace gamePad {
     let PIN_INIT = 0;
+    let _speed    = -1;
     
     export enum Vibrator { 
         //% blockId="V0" block="stop"
@@ -70,12 +80,12 @@ namespace gamePad {
         I3 = 225
     }
 
-    export enum Led {
-        //% blockId="OFF" block="off"
-        OFF = 0,
-        //% blockId="ON" block="on"
-        ON = 1
-    }
+    // export enum Led {
+    //     //% blockId="OFF" block="off"
+    //     OFF = 0,
+    //     //% blockId="ON" block="on"
+    //     ON = 1
+    // }
 
 
     //% shim=gamerpad::init
@@ -84,13 +94,13 @@ namespace gamePad {
     }
 
     function PinInit(): void {
-        pins.setPull(DigitalPin.P1, PinPullMode.PullNone);
-        pins.setPull(DigitalPin.P2, PinPullMode.PullNone);
+        //pins.setPull(DigitalPin.P1, PinPullMode.PullNone);
+        //pins.setPull(DigitalPin.P2, PinPullMode.PullNone);
         pins.setPull(DigitalPin.P8, PinPullMode.PullNone);
         pins.setPull(DigitalPin.P13, PinPullMode.PullNone);
         pins.setPull(DigitalPin.P14, PinPullMode.PullNone);
         pins.setPull(DigitalPin.P15, PinPullMode.PullNone);
-        pins.setPull(DigitalPin.P0, PinPullMode.PullUp);
+        //pins.setPull(DigitalPin.P0, PinPullMode.PullUp);
         pins.setPull(DigitalPin.P16, PinPullMode.PullUp);
         PIN_INIT = 1;
         return;
@@ -100,7 +110,7 @@ namespace gamePad {
      * To scan a button whether be triggered : return '1' if pressed; return'0' if not.
      */
     //% weight=70
-    //% blockId=gamePad_keyState block="button|%button|is pressed"
+    //% blockId=gamePad_keyState block="|%button|is pressed"
     //% button.fieldEditor="gridpicker" button.fieldOptions.columns=3
     export function keyState(button: GamerBitPin): boolean {
         if (!PIN_INIT) { 
@@ -117,8 +127,8 @@ namespace gamePad {
      * Registers code to run when a DFRobot gamer:bit event is detected.
      */
     //% weight=60
-    //% blockGap=50
-    //% blockId=gamePad_onEvent block="on button|%button|is %event"
+    //%blockGap=50
+    //% blockId=gamePad_onEvent block="on |%button|is %event"
     //% button.fieldEditor="gridpicker" button.fieldOptions.columns=3
     //% event.fieldEditor="gridpicker" event.fieldOptions.columns=3
     export function onEvent(button: GamerBitPin, event: GamerBitEvent, handler: Action) {
@@ -132,40 +142,79 @@ namespace gamePad {
     /**
      * Vibrating motor switch.
      */
-    //% weight=50
+    //% weight=10
     //% blockId=gamePad_vibratorMotor block="Vibrator motor switch|%index|"
     //% index.fieldEditor="gridpicker" index.fieldOptions.columns=2
     export function vibratorMotor(index: Vibrator): void {
-        vibratorMotorSpeed(<number>index);
+        if(_speed == -1){
+            if (!PIN_INIT) 
+                PinInit();
+            let num = index * 4;
+            pins.analogWritePin(AnalogPin.P12, <number>num);
+        }else{
+            if (!PIN_INIT) 
+                PinInit();
+            let num = _speed * 4;
+            pins.analogWritePin(AnalogPin.P12, <number>num);
+        }
         return;
     }
 
     /**
      * Vibration motor speed setting, adjustable range 0~255.
      */
-    //% weight=30
-    //% blockGap=50
+    //% weight=15
     //% blockId=gamePad_vibratorMotorSpeed block="Vibrator motor intensity|%degree"
     //% degree.min=0 degree.max=255
     export function vibratorMotorSpeed(degree: number): void {
-        if (!PIN_INIT) { 
-            PinInit();
-        }
-        let num = degree * 4;
-        pins.analogWritePin(AnalogPin.P12, <number>num);
+        _speed = degree;
         return;
     }
 
+
     /**
-     * LED indicator light switch.
+     * 获取摇杆的数据
      */
-    //% weight=20
-    //% blockId=gamePad_led block="LED|%index|"
-    //% index.fieldEditor="gridpicker" index.fieldOptions.columns=2
-    export function led(index: Led): void {
-        if (!PIN_INIT) { 
-            PinInit();
+    //% weight=45
+    //%blockId=gamePad_rockerX block="get rocker X direction %index"
+    export function rockerX(index:StateSelection):number{
+
+        switch(index){
+            case _analog:
+                return pins.analogReadPin(AnalogPin.P1);
+                break;
+            case _switch:
+                if(pins.analogReadPin(AnalogPin.P1) >=700){
+                    return 1;
+                    break;
+                }else if(pins.analogReadPin(AnalogPin.P1) <=300){
+                    return 0;
+                    break;
+                }
+            default:
+                return -1;
         }
-        pins.digitalWritePin(DigitalPin.P16, <number>index);
     }
-}
+
+    //% weight=40
+    //% blockGap=50
+    //%blockId=gamePad_rockerY block="get rocker Y direction %index"
+    export function rockerY(index:StateSelection):number{
+
+        switch(index){
+            case _analog:
+                return pins.analogReadPin(AnalogPin.P2);
+                break;
+            case _switch:
+                if(pins.analogReadPin(AnalogPin.P2) >=700){
+                    return 1;
+                    break;
+                }else if(pins.analogReadPin(AnalogPin.P2) <=300){
+                    return 0;
+                    break;
+                }
+            default:
+                return -1;
+        }
+    }
+ }
