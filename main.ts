@@ -15,17 +15,18 @@
 /**
  * User Buttons for DFRobot gamer:bit Players.
  */
+
 //%
 enum GamerBitPin {
-    //% block="KeyZ"
+    //% block="Key Z"
     P8 = DAL.MICROBIT_ID_IO_P8,
-    //% block="KeyC"
+    //% block="Key C"
     P13 = DAL.MICROBIT_ID_IO_P13,
-    //% block="KeyD"
+    //% block="Key D"
     P14 = DAL.MICROBIT_ID_IO_P14,
-    //% block="KeyE"
+    //% block="Key E"
     P15 = DAL.MICROBIT_ID_IO_P15,
-    //% block="KeyF"
+    //% block="Key F"
     P16 = DAL.MICROBIT_ID_IO_P16
 }
 
@@ -44,9 +45,9 @@ enum GamerBitEvent {
 
 //%
 enum StateSelection{
-    //%block="analogquantity"
+    //%block="analog quantity"
     ANALOG,
-    //%block="switchquantity"
+    //%block="switch quantity"
     SWITCH
 }
 
@@ -109,7 +110,7 @@ namespace gamePad {
      * To scan a button whether be triggered : return '1' if pressed; return'0' if not.
      */
     //% weight=70
-    //% blockId=gamePad_keyState block="|%button|is pressed"
+    //% blockId=gamePad_keyState block="on|%button|is pressed"
     //% button.fieldEditor="gridpicker" button.fieldOptions.columns=3
     export function keyState(button: GamerBitPin): boolean {
         if (!PIN_INIT) { 
