@@ -1,31 +1,50 @@
+# gamePad
 
-> 在 [https://tangjie133.github.io/pxt-dfrobot_gamepad_v30/](https://tangjie133.github.io/pxt-dfrobot_gamepad_v30/) 打开此页面
+Micro:bit game handle expansion board.
+![image](http://wiki.dfrobot.com.cn/images/9/98/DFR0536%E5%A4%96%E5%BD%A2%E5%9B%BE.png)
+---------------------------------------------------------
 
-## 用作扩展
+## Table of Contents
 
-此仓库可以作为 **插件** 添加到 MakeCode 中。
+* [URL](#url)
+* [Summary](#summary)
+* [Blocks](#blocks)
+* [License](#license)
 
-* 打开 [https://makecode.microbit.org/](https://makecode.microbit.org/)
-* 点击 **新项目**
-* 点击齿轮图标菜单下的 **扩展**
-* 搜索 **https://github.com/tangjie133/pxt-dfrobot_gamepad_v30** 并导入
+## URL
+project URL:  ```https://github.com/DFRobot/pxt-gamePad```
 
-## 编辑此项目 ![构建状态标志](https://github.com/tangjie133/pxt-dfrobot_gamepad_v30/workflows/MakeCode/badge.svg)
+## Summary
 
-在 MakeCode 中编辑此仓库。
+Micro: the bit game handle is based on micro: the extension handle of the bit main board.All you need to do is plug in micro: the bit board, and you can turn micro:bit into a wireless remote control handle or a wireless game console.The product is made of acrylic sheet, and it feels good. It will not have the feel of sticking hands like exposed circuit board.
+There are 8 buttons in the game handle, and the left hand side is divided into the top, bottom, left and right buttons. The right side is X and Y, and the front leads to the two buttons of A and B.
+This game controller also has built-in vibration motor, buzzer, LED, these resources are programmable control.Using graphical programming, you can instantly turn your micro:bit into a multimedia vibrator or multimedia interactive console.
+The programming platform supports makecode graphical programming and python programming, which is a great tool for programming from entry to advanced programming education.
 
-* 打开 [https://makecode.microbit.org/](https://makecode.microbit.org/)
-* 点击 **导入**，然后点击 **导入 URL**
-* 粘贴 **https://github.com/tangjie133/pxt-dfrobot_gamepad_v30** 并点击导入
+## Blocks
 
-## 积木块预览
+### 1.LED control
+![image](https://github.com/DFRobot/pxt-gamePad/blob/master/image/1.png)
 
-此图像显示主分支中最后一次提交的块代码。
-此图像可能需要几分钟才能刷新。
+### 2.Vibration motor control
+![image](https://github.com/DFRobot/pxt-gamePad/blob/master/image/2.png)<br>
+![image](https://github.com/DFRobot/pxt-gamePad/blob/master/image/3.png)
 
-![块的渲染视图](https://github.com/tangjie133/pxt-dfrobot_gamepad_v30/raw/master/.github/makecode/blocks.png)
+### 3.Buttons are triggered as events.
+![image](https://github.com/DFRobot/pxt-gamePad/blob/master/image/4.png)
 
-#### 元数据 (用于搜索、渲染)
+### 4.Check button status
+![image](https://github.com/DFRobot/pxt-gamePad/blob/master/image/5.png)
+
+
+## License
+
+GNU
+
+## Supported targets
 
 * for PXT/microbit
-<script src="https://makecode.com/gh-pages-embed.js"></script><script>makeCodeRender("{{ site.makecode.home_url }}", "{{ site.github.owner_name }}/{{ site.github.repository_name }}");</script>
+(The metadata above is needed for package search.)
+```package
+gamePad=github:DFRobot/pxt-gamePad
+```

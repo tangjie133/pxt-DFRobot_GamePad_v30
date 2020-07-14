@@ -1,16 +1,16 @@
 /*！
  * @file gamePad/main.ts
  * @brief DFRobot's gamer pad makecode library.
- * @n [Get the module here]()
+ * @n [Get the module here](http://www.dfrobot.com.cn/goods-1577.html)
  * @n This is the microbit dedicated handle library, which provides an API to 
  * control eight buttons, including an led indicator light and a vibrating motor.
  *
  * @copyright	[DFRobot](http://www.dfrobot.com), 2016
  * @copyright	GNU Lesser General Public License
  *
- * @author [email](jie.tang@dfrobot.com)
+ * @author [email](1035868977@qq.com)
  * @version  V1.0
- * @date  2020-07-13
+ * @date  2018-03-20
  */
 
 /**
@@ -18,15 +18,17 @@
  */
 //%
 enum GamerBitPin {
-    //% block="D-PAD Z"
-    P2 = DAL.MICROBIT_ID_IO_P8,
-    //% block="D-PAD F"
-    P8 = DAL.MICROBIT_ID_IO_P16,
-    //% block="D-PAD C"
+    //% block="X button"
+    P1 = DAL.MICROBIT_ID_IO_P1,
+    //% block="Y button"
+    P2 = DAL.MICROBIT_ID_IO_P2,
+    //% block="D-PAD up"
+    P8 = DAL.MICROBIT_ID_IO_P8,
+    //% block="D-PAD down"
     P13 = DAL.MICROBIT_ID_IO_P13,
-    //% block="D-PAD D"
+    //% block="D-PAD left"
     P14 = DAL.MICROBIT_ID_IO_P14,
-    //% block="D-PAD E"
+    //% block="D-PAD right"
     P15 = DAL.MICROBIT_ID_IO_P15,
 }
 
@@ -49,7 +51,7 @@ enum GamerBitEvent {
 //% weight=10 color=#DF6721 icon="\uf11b" block="gamePad"
 namespace gamePad {
     let PIN_INIT = 0;
-    let speed    = 0;
+    
     export enum Vibrator { 
         //% blockId="V0" block="stop"
         V0 = 0,
@@ -82,6 +84,7 @@ namespace gamePad {
     }
 
     function PinInit(): void {
+        pins.setPull(DigitalPin.P1, PinPullMode.PullNone);
         pins.setPull(DigitalPin.P2, PinPullMode.PullNone);
         pins.setPull(DigitalPin.P8, PinPullMode.PullNone);
         pins.setPull(DigitalPin.P13, PinPullMode.PullNone);
@@ -133,17 +136,7 @@ namespace gamePad {
     //% blockId=gamePad_vibratorMotor block="Vibrator motor switch|%index|"
     //% index.fieldEditor="gridpicker" index.fieldOptions.columns=2
     export function vibratorMotor(index: Vibrator): void {
-        if(speed != 0){
-            if (!PIN_INIT) 
-                PinInit();
-            let num = speed * 4;
-            pins.analogWritePin(AnalogPin.P12, <number>num);
-        }else{
-            if (!PIN_INIT) 
-                PinInit();
-            let num = index * 4;
-            pins.analogWritePin(AnalogPin.P12, <number>num);
-        }
+        vibratorMotorSpeed(<number>index);
         return;
     }
 
@@ -155,20 +148,24 @@ namespace gamePad {
     //% blockId=gamePad_vibratorMotorSpeed block="Vibrator motor intensity|%degree"
     //% degree.min=0 degree.max=255
     export function vibratorMotorSpeed(degree: number): void {
-       speed = degree;
+        if (!PIN_INIT) { 
+            PinInit();
+        }
+        let num = degree * 4;
+        pins.analogWritePin(AnalogPin.P12, <number>num);
         return;
     }
 
-    // /**
-    //  * LED indicator light switch.
-    //  */
-    // //% weight=20
-    // //% blockId=gamePad_led block="LED|%index|"
-    // //% index.fieldEditor="gridpicker" index.fieldOptions.columns=2
-    // export function led(index: Led): void {
-    //     if (!PIN_INIT) { 
-    //         PinInit();
-    //     }
-    //     pins.digitalWritePin(DigitalPin.P16, <number>index);
-    // }
+    /**
+     * LED indicator light switch.
+     */
+    //% weight=20
+    //% blockId=gamePad_led block="LED|%index|"
+    //% index.fieldEditor="gridpicker" index.fieldOptions.columns=2
+    export function led(index: Led): void {
+        if (!PIN_INIT) { 
+            PinInit();
+        }
+        pins.digitalWritePin(DigitalPin.P16, <number>index);
+    }
 }
